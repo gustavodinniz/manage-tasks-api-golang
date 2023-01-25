@@ -6,6 +6,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"go.mod/configs"
+	"go.mod/handlers"
 )
 
 func main() {
@@ -15,6 +16,11 @@ func main() {
 	}
 
 	r := chi.NewRouter()
+	r.Post("/", handlers.Create)
+	r.Put("/{id}", handlers.Update)
+	r.Delete("/{id}", handlers.Delete)
+	r.Get("/", handlers.List)
+	r.Get("/{id}", handlers.Get)
 
 	http.ListenAndServe(fmt.Sprintf(":%s", configs.GetServerPort()), r)
 
